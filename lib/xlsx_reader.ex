@@ -212,6 +212,16 @@ defmodule XlsxReader do
     PackageLoader.load_sheet_by_name(package, sheet_name, options)
   end
 
+  @spec sheet(XlsxReader.Package.t(), sheet_name(), Keyword.t()) :: rows() | error()
+  def sheet!(package, sheet_name, options \\ []) do
+    sheet(package, sheet_name, options)
+    |> case do
+      {:ok, rows} ->
+        rows
+      e -> e
+    end
+  end
+
   @doc """
 
   Loads all the sheets in the workbook.
